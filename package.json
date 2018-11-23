@@ -1,0 +1,12 @@
+{
+  "name": "Telegram",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Laurent Delteil",
+  "license": "MIT",
+  "dependencies": {
+    "moment": "^2.22.2",
+    "moment-timezone": "^0.5.23",
+    "node-telegram-bot-api": "^0.30.0",
+  }
+}
