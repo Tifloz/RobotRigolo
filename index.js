@@ -11,18 +11,18 @@ let catData = "";
 bot.on('message', (msg) => {
     let messageSent = "";
     console.log(msg);
-    if (msg.text === "timeKr()") {
+    if (msg.text === "/timeKr") {
         messageSent = momentTimeZone().tz("Asia/Seoul").format("HH:mm:ss");
         messageSent += " 🇰🇷";
         bot.sendMessage(msg.chat.id, messageSent);
-    } else if (msg.text === "time()") {
+    } else if (msg.text === "/time") {
         messageSent = moment().format('HH:mm:ss');
         messageSent += " 🇫🇷";
         bot.sendMessage(msg.chat.id, messageSent);
-    } else if (msg.text === "command()") {
-        messageSent = "timeKr() ▶️ time in Korea 🇰🇷\ntime() ▶️ local time 🇫🇷\ncat() ▶ Send a 🐱 fact";
+    } else if (msg.text === "/command") {
+        messageSent = "timeKr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact";
         bot.sendMessage(msg.chat.id, messageSent);
-    } else if (msg.text === "cat()") {
+    } else if (msg.text === "/cat") {
         let idCatFact;
             http.get(catApi, function (response) {
             response.on("data", function (factResolve) {
@@ -35,8 +35,8 @@ bot.on('message', (msg) => {
                 catData = "";
             })
         })
-    } else if (msg.text === "nextUpdate()") {
-        bot.sendMessage(msg.chat.id, "Generic code, global array of function and description for messages");
+    } else if (msg.text === "/nextUpdate") {
+        bot.sendMessage(msg.chat.id, "Generic code, function and description for messages");
     }
 });
 
