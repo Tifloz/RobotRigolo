@@ -1,4 +1,7 @@
 const telegramBot = require('telegraf');
+const Extra = require('telegraf/extra')
+const Markup = require('telegraf/markup')
+
 const token = require('./config/token');
 const bot = new telegramBot(token);
 const moment = require('moment');
@@ -9,8 +12,14 @@ const catApi = "https://cat-fact.herokuapp.com/facts";
 let catData = "";
 let messageSent = "";
 
+bot.use(telegramBot.log());
 
 bot.help(ctx => ctx.reply("timeKr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact"));
+
+bot.on('message', (ctx) => {
+    if (ctx.update.message.from.id === 430426431 && moment().format("YYYY/MM/DD") === "2018/11/27")
+        ctx.reply("eeeeee");
+});
 bot.command('timeKr', (ctx => {
     messageSent = momentTimeZone().tz("Asia/Seoul").format("HH:mm:ss");
     messageSent += " 🇰🇷";
@@ -23,6 +32,7 @@ bot.command('time', (ctx => {
 }));
 
 bot.command('cat', (ctx => {
+    let idCatFact;
     http.get(catApi, function (response) {
         response.on("data", function (factResolve) {
             catData += factResolve;
@@ -36,6 +46,7 @@ bot.command('cat', (ctx => {
         })
     })
 }));
+
 
 bot.startPolling();
 
