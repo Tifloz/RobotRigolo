@@ -1,43 +1,42 @@
-const telegramBot = require('node-telegram-bot-api');
+const telegramBot = require('telegraf');
 const token = require('./config/token');
-const bot = new telegramBot(token, {polling: true});
+const bot = new telegramBot(token);
 const moment = require('moment');
 const momentTimeZone = require('moment-timezone');
 const http = require('https');
+const express = require('express');
 const catApi = "https://cat-fact.herokuapp.com/facts";
 let catData = "";
+let messageSent = "";
 
 
-bot.on('message', (msg) => {
-    let messageSent = "";
-    console.log(msg);
-    if (msg.text === "/timeKr") {
-        messageSent = momentTimeZone().tz("Asia/Seoul").format("HH:mm:ss");
-        messageSent += " 🇰🇷";
-        bot.sendMessage(msg.chat.id, messageSent);
-    } else if (msg.text === "/time") {
-        messageSent = moment().format('HH:mm:ss');
-        messageSent += " 🇫🇷";
-        bot.sendMessage(msg.chat.id, messageSent);
-    } else if (msg.text === "/command") {
-        messageSent = "timeKr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact";
-        bot.sendMessage(msg.chat.id, messageSent);
-    } else if (msg.text === "/cat") {
-        let idCatFact;
-            http.get(catApi, function (response) {
-            response.on("data", function (factResolve) {
-                catData += factResolve;
-            });
-            response.on("end", function (err) {
-                catData = JSON.parse(catData);
-                idCatFact = Math.floor(Math.random() * Math.floor(catData.all.length));
-                bot.sendMessage(msg.chat.id, catData.all[idCatFact].text + " 🐱");
-                catData = "";
-            })
+bot.help(ctx => ctx.reply("timeKr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact"));
+bot.command('timeKr', (ctx => {
+    messageSent = momentTimeZone().tz("Asia/Seoul").format("HH:mm:ss");
+    messageSent += " 🇰🇷";
+    ctx.reply(messageSent);
+}));
+bot.command('time', (ctx => {
+    messageSent = moment().format('HH:mm:ss');
+    messageSent += " 🇫🇷";
+    ctx.reply(messageSent);
+}));
+
+bot.command('cat', (ctx => {
+    http.get(catApi, function (response) {
+        response.on("data", function (factResolve) {
+            catData += factResolve;
+        });
+        response.on("end", function (err) {
+            catData = JSON.parse(catData);
+            idCatFact = Math.floor(Math.random() * Math.floor(catData.all.length));
+            messageSent = catData.all[idCatFact].text + " 🐱";
+            ctx.reply(messageSent);
+            catData = "";
         })
-    } else if (msg.text === "/nextUpdate") {
-        bot.sendMessage(msg.chat.id, "Generic code, function and description for messages");
-    }
-});
+    })
+}));
+
+bot.startPolling();
 
 

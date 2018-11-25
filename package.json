@@ -5,8 +5,10 @@
   "author": "Laurent Delteil",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.16.4",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.23",
     "node-telegram-bot-api": "^0.30.0",
+    "telegraf": "^3.25.0"
   }
 }
