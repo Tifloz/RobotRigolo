@@ -8,15 +8,42 @@ const moment = require('moment');
 const momentTimeZone = require('moment-timezone');
 const http = require('https');
 const express = require('express');
+const commandParts = require('telegraf-command-parts');
+
 const catApi = "https://cat-fact.herokuapp.com/facts";
 let catData = "";
 let messageSent = "";
 let CounterBirthDay = 0;
 
 bot.use(telegramBot.log());
+bot.use(commandParts());
 
 bot.help(ctx => ctx.reply("timeKr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact"));
 
+
+bot.command('schedule', ctx => {
+    const arg = ctx.state.command.splitArgs;
+    const date = arg[0];
+    let checkdate = moment(date, "DD/MM/YY-HH:mm", true);
+    let argParsed = arg.splice(1, arg.length).join(' ');
+    let timer = 0;
+
+    if (ctx.state.command.splitArgs.length === 1)
+        messageSent = "Veuillez indiquer un message";
+    else if (moment(date, "DD/MM/YY-HH:mm") < moment())
+        messageSent = "La date est déjà passé";
+    else if (checkdate.isValid()) {
+        messageSent = `Votre message: "${argParsed}" s'enverra le ${date}`;
+        timer = (moment(date, "DD/MM/YY-HH:mm") - moment());
+    } else
+        messageSent = "Date invalide format DD/MM/YY-HH:mm";
+    ctx.reply(messageSent);
+    if (timer) {
+        setTimeout(function () {
+            ctx.reply(argParsed);
+        }, timer);
+    }
+});
 
 bot.command('timeKr', (ctx => {
     messageSent = momentTimeZone().tz("Asia/Seoul").format("HH:mm:ss");
@@ -64,7 +91,6 @@ bot.on('message', (ctx) => {
         CounterBirthDay++;
     }
 });
-
 
 
 bot.startPolling();
