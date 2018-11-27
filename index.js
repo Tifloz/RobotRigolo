@@ -102,6 +102,11 @@ bot.on('message', (ctx) => {
             case 4:
                 ctx.replyWithSticker("CAADAgADTQYAApb6EgUzSUkAATkoXTcC");
                 break;
+            case 6:
+                ctx.replyWithPhoto("https://goo.gl/images/ztK4Mh");
+                break;
+            case 7:
+                ctx.reply("C'était le dernier mon bro, quand tu veux pour fêter ça ❤️");
         }
         CounterBirthDay++;
     }
