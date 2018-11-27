@@ -61,7 +61,7 @@ bot.command('timekr', (ctx => {
 }));
 
 bot.command('timear', (ctx => {
-    messageSent = momentTimeZone().tz("/America/Argentina/Buenos_Aires").format("HH:mm:ss");
+    messageSent = momentTimeZone().tz("America/Argentina/Buenos_Aires").format("HH:mm:ss");
     messageSent += " 🇦🇷";
     ctx.reply(messageSent);
 }));
