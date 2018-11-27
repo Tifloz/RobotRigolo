@@ -20,8 +20,14 @@ bot.use(commandParts());
 
 bot.telegram.getMe().then((botInfo) => {
   bot.options.username = botInfo.username;
-})
-bot.help(ctx => ctx.reply("timekr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact"));
+});
+
+bot.help(ctx => ctx.reply("" +
+    "schedule ▶️ schedule a message 📫 [DD/MM/YY-HH:mm] [message]" +
+    "timekr ▶️ time in Korea 🇰🇷\n" +
+    "time ▶️ local time 🇫🇷\n" +
+    "cat ▶ Send a 🐱 fact\n" +
+    "timear  ▶ time in Argentina 🇦🇷"));
 
 
 bot.command('schedule', ctx => {
@@ -51,6 +57,12 @@ bot.command('schedule', ctx => {
 bot.command('timekr', (ctx => {
     messageSent = momentTimeZone().tz("Asia/Seoul").format("HH:mm:ss");
     messageSent += " 🇰🇷";
+    ctx.reply(messageSent);
+}));
+
+bot.command('timear', (ctx => {
+    messageSent = momentTimeZone().tz("/America/Argentina/Buenos_Aires").format("HH:mm:ss");
+    messageSent += " 🇦🇷";
     ctx.reply(messageSent);
 }));
 bot.command('time', (ctx => {
