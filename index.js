@@ -23,7 +23,7 @@ bot.telegram.getMe().then((botInfo) => {
 });
 
 bot.help(ctx => ctx.reply("" +
-    "schedule ▶️ schedule msg 📫 [DD/MM/YY-HH:mm] [msg]" +
+    "schedule ▶️ schedule msg 📫 [DD/MM/YY-HH:mm] [msg]\n" +
     "timekr ▶️ time in Korea 🇰🇷\n" +
     "time ▶️ local time 🇫🇷\n" +
     "cat ▶ Send a 🐱 fact\n" +
