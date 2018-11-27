@@ -3,7 +3,7 @@ const Extra = require('telegraf/extra')
 const Markup = require('telegraf/markup')
 
 const token = require('./config/token');
-const bot = new telegramBot(token);
+const bot = new telegramBot(token, {username: 'MonPoteLeBot'});
 const moment = require('moment');
 const momentTimeZone = require('moment-timezone');
 const http = require('https');
@@ -18,7 +18,10 @@ let CounterBirthDay = 0;
 bot.use(telegramBot.log());
 bot.use(commandParts());
 
-bot.help(ctx => ctx.reply("timeKr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact"));
+bot.telegram.getMe().then((botInfo) => {
+  bot.options.username = botInfo.username;
+})
+bot.help(ctx => ctx.reply("timekr ▶️ time in Korea 🇰🇷\ntime ▶️ local time 🇫🇷\ncat ▶ Send a 🐱 fact"));
 
 
 bot.command('schedule', ctx => {
@@ -45,7 +48,7 @@ bot.command('schedule', ctx => {
     }
 });
 
-bot.command('timeKr', (ctx => {
+bot.command('timekr', (ctx => {
     messageSent = momentTimeZone().tz("Asia/Seoul").format("HH:mm:ss");
     messageSent += " 🇰🇷";
     ctx.reply(messageSent);
