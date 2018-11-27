@@ -103,7 +103,7 @@ bot.on('message', (ctx) => {
                 ctx.replyWithSticker("CAADAgADTQYAApb6EgUzSUkAATkoXTcC");
                 break;
             case 6:
-                ctx.replyWithPhoto("https://goo.gl/images/ztK4Mh");
+                ctx.replyWithPhoto("http://breakforbuzz.com/wp-content/uploads/2014/06/penis_cake.jpg");
                 break;
             case 7:
                 ctx.reply("C'était le dernier mon bro, quand tu veux pour fêter ça ❤️");
