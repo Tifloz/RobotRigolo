@@ -87,31 +87,10 @@ bot.command('cat', (ctx => {
     })
 }));
 
-bot.on('message', (ctx) => {
-    if (ctx.update.message.from.id === 507276943 && moment().format("YYYY/MM/DD") === "2018/11/28") {
-        switch (CounterBirthDay) {
-            case 0:
-                ctx.reply("JOYYYYYYYYEUX ANNNNIVERSSSAIIIIRE MON BRO THEEEEEEEO ❤️");
-                break;
-            case 1:
-                ctx.replyWithPhoto("https://i.ytimg.com/vi/G-oXiAiz_2o/hqdefault.jpg");
-                break;
-            case 3:
-                ctx.reply("🎂🎂🎈🎊🎉🎈🎊🎉🎈🎊🎉🎈🎊🎉🎂🎂");
-                break;
-            case 4:
-                ctx.replyWithSticker("CAADAgADTQYAApb6EgUzSUkAATkoXTcC");
-                break;
-            case 6:
-                ctx.replyWithPhoto("http://breakforbuzz.com/wp-content/uploads/2014/06/penis_cake.jpg");
-                break;
-            case 7:
-                ctx.reply("C'était le dernier mon bro, quand tu veux pour fêter ça ❤️");
-        }
-        CounterBirthDay++;
-    }
+bot.hears('...', ctx => {
+    messageSent = "Le temps passe vite.";
+    ctx.reply(messageSent);
 });
-
 
 bot.startPolling();
 
