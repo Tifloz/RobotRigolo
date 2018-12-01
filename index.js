@@ -92,6 +92,16 @@ bot.hears('...', ctx => {
     ctx.reply(messageSent);
 });
 
+bot.hears('Lucas ?', ctx => {
+    messageSent = "Ça devient dur de communiquer avec toi Lucas";
+    ctx.reply(messageSent);
+});
+
+bot.hears('? Lucas', ctx => {
+    messageSent = "Ça devient dur de communiquer avec toi Lucas";
+    ctx.reply(messageSent);
+});
+
 bot.startPolling();
 
 
