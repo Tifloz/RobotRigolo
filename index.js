@@ -102,6 +102,11 @@ bot.hears('? Lucas', ctx => {
     ctx.reply(messageSent);
 });
 
+bot.hears('Laurent ?', ctx => {
+    messageSent = "Ou peut etre que tu ne le comprends plus Laurent ...";
+    ctx.reply(messageSent);
+});
+
 bot.startPolling();
 
 
